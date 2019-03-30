@@ -1,0 +1,104 @@
+1. Buat Struktur Folder & File
+   + helper
+   + libraries
+   + models
+   * autoload.php
+
+2. Libraries
+   => Database.php
+   => Model.php 
+
+3. libraries/Database.php
+   => public class Database{
+         public $conn;
+         public function __construct(){}
+       }
+
+4. libraries/Model.php
+   => require_once "Database.php"
+      public function Model extends Database{
+            public function all(){
+
+            }
+            public function where(){
+
+            }
+            public function delete(){
+
+            }
+            public function insert(){
+
+            }
+            public function update(){
+
+            }
+
+      }
+
+5. autoload.php
+   => $BASE_URL = "c:/path/to";
+      require_once "libraries/Database.php";
+      require_once "libraries/Model.php";
+      require_once "helper/Alert.php";
+      require_once "helper/Random.php";
+
+     session_start();
+    
+6. helper/Alert.php
+   helper/Random.php
+
+7. models/Level.php
+  => require_once $BASE_URL . "/libraries/Model.php";
+     public class Level extends Model{
+        protected $table = "nama_table_level";
+     }
+
+    $level = new Level(); 
+  
+8. level/index.php
+   level/edit.php
+   level/delete.php
+   level/process/add-process.php
+   level/process/edit-process.php
+
+9. level/index.php
+   => require_once "../autoload.php";
+      require_once $BASE_URL . "models/Level.php"
+
+     $level->all();
+
+10. helper/Alert.php
+    => function alert($message, $location){
+          echo "<script>alert(\"$message\"); location.href = "$location"</script>
+       }
+    helper/Random.php
+   => function Random($code, $length){
+        $random = "0123456789";
+        //897653421
+        $mix = str_shuffle($random);
+        $result = $code . "-" . substr($mix, 0, $length);
+       
+
+
+      return $result;
+       
+     }
+
+
+11. level/add-process.php
+    level/delete.php
+    level/edit.php & level/edit-process.php
+
+12. Level
+      + Ruang
+      + Jenis
+   Jenis/Ruang
+      + Pegawai
+   Pegawai
+      + Petugas
+   Petugas
+      + Inventaris
+  Inventaris
+      + Peminjaman    
+
+13. Lanjutin & Berdoa
