@@ -11,6 +11,15 @@
             return $rows;
         }
 
+        public function callProcedure($name){
+            $sql = "CALL " . $name;
+
+            $query = $this->conn->query($sql);
+
+            $rows = $query->fetch();
+            return $rows['total'];
+        }
+
         public function where($column, $value){
             $sql = "SELECT * FROM " . $this->table . " WHERE $column = '$value'";
             
@@ -106,7 +115,7 @@
     }
 
     // $model = new Model();
-    // var_dump($model->all());
+    // var_dump($model->callProcedure('total_inventaris'));
 
     // $model = new Model();
     // var_dump($model->all());

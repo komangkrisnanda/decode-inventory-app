@@ -15,7 +15,7 @@
         $jumlahPinjam = $_POST['jumlah_pinjam'];
         $tanggalPinjam = $_POST['tanggal_pinjam'];
         $tanggalKembali = $_POST['tanggal_kembali'];
-        $idPegawai = $_POST['id_pegawai'];
+        $idPeminjam = $_POST['id_peminjam'];
 
         $detail = [];
 
@@ -30,7 +30,7 @@
         // var_dump($detail);
         // die();
 
-        if(!empty($idInventaris) && !empty($jumlahPinjam) && !empty($tanggalPinjam) && !empty($tanggalKembali) && is_numeric($idPegawai)){
+        if(!empty($idInventaris) && !empty($jumlahPinjam) && !empty($tanggalPinjam) && !empty($tanggalKembali) && is_numeric($idPeminjam)){
 
             //Check 
             foreach($detail as $data){
@@ -42,11 +42,19 @@
                 }
             }
 
+            //Check udah dikembaliin atau belum cok
+            foreach($peminjaman->whereAll('id_peminjam', $idPeminjam) as $data){
+                if($data['status_peminjaman'] == "Belum Kembali"){
+                    alert("Maaf, peminjam tersebut harap mengembalikan barang sebelumnya terlebih dahulu untuk dapat meminjam kembali!", "../index.php");
+                    die();
+                }
+            }
+
             $query = $peminjaman->insert([
                 'tanggal_pinjam' => $tanggalPinjam,
                 'tanggal_kembali' => $tanggalKembali,
                 'status_peminjaman' => "Belum Kembali",
-                'id_pegawai' => $idPegawai
+                'id_peminjam' => $idPeminjam
             ]);
 
             if($query){

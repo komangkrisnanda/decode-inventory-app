@@ -18,19 +18,19 @@
     <form action="detail.php" method="GET">
         <table align="center">
             <tr>
-                <td>Pilih Bulan</td>
+                <td>Range Awal</td>
                 <td>
-                    <select name="bulan">
-                        <?php
-                            foreach($peminjaman->getMonths() as $data){
-                                ?>
-                                    <option value="<?= $data['bulan_pinjam'] ?>"><?= convertMonth($data['bulan_pinjam']) ?></option>
-                                <?php
-                            }
-                        ?>
-                    </select>
-                    <input type="submit" value="Cek Laporan">
+                    <input type="date" name="range_awal" value="<?= date("Y-m-d") ?>" required>
                 </td>
+            </tr>
+            <tr>
+                <td>Range Akhir</td>
+                <td>
+                    <input type="date" name="range_akhir" value="<?= date("Y-m-d", strtotime("+1 day")) ?>" required>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right"><input type="submit" value="Cari!"></td>
             </tr>
         </table>
     </form>

@@ -19,6 +19,7 @@
 <body>
     <form action="process/add-process.php" method="POST">
         <h1 align="center">Tambah Data Inventaris</h1>
+
         <table style="margin:auto">
             <tr>
                 <td>Nama Inventaris</td>
@@ -105,7 +106,7 @@
                         <td><?= $data['keterangan'] ?></td>
                         <td><?= $data['nama_petugas'] ?></td>
                         <td><?= $data['tanggal_register'] ?></td>
-                        <td><a href="edit.php?id=<?= $data['id_inventaris'] ?>">Edit</a> | <a href="delete.php?id=<?= $data['id_inventaris'] ?>">Delete</a></td>
+                        <td><a href="edit.php?id=<?= $data['id_inventaris'] ?>">Edit</a> | <a href="delete.php?id=<?= $data['id_inventaris'] ?>" onclick="return confirm('Are you sure?')">Delete</a></td>
                     </tr>
                 <?php
             }

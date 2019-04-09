@@ -2,7 +2,7 @@
     require_once "autoload.php";
     require_once $BASE_URL . "/models/Peminjaman.php";
 
-    $allowedLevel = ["Pegawai"];
+    $allowedLevel = ["Pegawai","Guru","Siswa"];
     if(!in_array($_SESSION['level'], $allowedLevel)){
         header('location: login.php');
     }
@@ -31,7 +31,7 @@
         <table style="margin:auto; border-collapse: collapse" border="1" cellpadding="10">
             <tr>
                 <td>#No</td>
-                <td>Nama Pegawai</td>
+                <td>Nama Peminjam</td>
                 <td>Nama Inventaris</td>
                 <td>Jumlah</td>
             </tr>
@@ -41,7 +41,7 @@
                     ?>      
                         <tr>
                             <td><?= $number++ ?></td>
-                            <td><?= $detail['nama_pegawai'] ?></td>
+                            <td><?= $detail['nama_peminjam'] ?></td>
                             <td><?= $detail['nama'] ?></td>
                             <td><?= $detail['jumlah'] ?></td>
                         </tr>

@@ -13,6 +13,7 @@
     <title>Level</title>
 </head>
 <body>
+    <?php $title = "Data Level"; require_once $BASE_URL . "/helper/header.inc.php" ?>
     <form action="process/add-process.php" method="POST">
         <h1 align="center">Tambah Data Level</h1>
         <table style="margin:auto">

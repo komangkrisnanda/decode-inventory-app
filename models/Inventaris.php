@@ -31,6 +31,15 @@
 
             return $rows;
         }
+
+        public function withSearch($search){
+            $sql = "SELECT * FROM inventaris WHERE nama LIKE '%$search%'";
+
+            $query = $this->conn->query($sql);
+
+            $rows = $query->fetchAll();
+            return $rows;
+        }
     }
 
     $inventaris = new Inventaris();

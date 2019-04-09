@@ -5,18 +5,20 @@
     require_once $BASE_URL . "/models/Jenis.php";
     require_once $BASE_URL . "/models/Ruang.php";
     require_once $BASE_URL . "/models/Petugas.php";
-    require_once $BASE_URL . "/models/Pegawai.php";
+    require_once $BASE_URL . "/models/Peminjam.php";
 
     $allowedLevel = ["Administrator"];
     if(!in_array($_SESSION['level'], $allowedLevel)){
         header('location: ../index.php');
     }
 
-    if(is_numeric($_GET['bulan'])){
-        $bulan = $_GET['bulan'];
-        $data = $peminjaman->whereAll('MONTH(tanggal_pinjam)', $bulan);
+    if(!empty($_GET['range_awal']) && !empty($_GET['range_akhir'])){
+        $rangeAwal = $_GET['range_awal'];
+        $rangeAkhir = $_GET['range_akhir'];
+        $data = $peminjaman->whereBetween("tanggal_pinjam", "$rangeAwal", "$rangeAkhir");
+
         if(count($data) == 0){
-            header('location: index.php');
+            alert("Data laporan tidak tersedia!", "index.php");
         }
     }
     else{
@@ -51,11 +53,10 @@
 </head>
 <body>
     <h1 align="center">Laporan Inventory App</h1>
-    <p align="center">Update : <?= date("d F Y H:i:s"); ?></p>
 
     <table align="center" cellpadding="5" style="border-collapse: collapse" border="1">
         <tr>
-            <td colspan="2" align="center">Laporan Peminjaman "<?= convertMonth($bulan) ?>"</td>
+            <td colspan="2" align="center">Laporan Peminjaman <br> <?= date('d F Y', strtotime($rangeAwal)) ?> - <?= date('d F Y', strtotime($rangeAkhir)) ?></td>
         </tr>
         <tr>
             <td><b>Keterangan</b></td>
@@ -82,28 +83,30 @@
         </tr>
         <tr>
             <td>Total Inventaris</td>
-            <td><?= count($inventaris->all()) ?></td>
+            <td><?= $inventaris->callProcedure('total_inventaris') ?></td>
         </tr>
         <tr>
             <td>Total Jenis</td>
-            <td><?= count($jenis->all()) ?></td>
+            <td><?= $jenis->callProcedure('total_jenis') ?></td>
         </tr>
         <tr>
             <td>Total Ruang</td>
-            <td><?= count($ruang->all()) ?></td>
+            <td><?= $ruang->callProcedure('total_ruang') ?></td>
         </tr>
         <tr>
             <td>Total Petugas</td>
-            <td><?= count($petugas->all()) ?></td>
+            <td><?= $petugas->callProcedure('total_petugas') ?></td>
         </tr>
         <tr>
-            <td>Total Pegawai</td>
-            <td><?= count($pegawai->all()) ?></td>
+            <td>Total Peminjam</td>
+            <td><?= $peminjam->callProcedure('total_peminjam') ?></td>
         </tr>
     </table>
 
     <div style="width: 100%; text-align: center; margin-top: 1em">
-        <button onclick="print()">Print Laporan</button>
+    <button onclick="print()">Print Laporan</button>
+    <a href="detail_peminjaman.php?range_awal=<?= $rangeAwal ?>&range_akhir=<?= $rangeAkhir ?>"><button>Detail</button></a>
+        
     </div>
 
 </body>

@@ -7,7 +7,7 @@
     Login Sebagai
     <select id="level">
         <option value="admin">Admin / Petugas</option>
-        <option value="pegawai">Pegawai</option>
+        <option value="peminjam">Peminjam</option>
     </select>
     <form action="login-process.php" method="POST" id="form1">
         <h1>Login Admin / Petugas</h1>
@@ -25,12 +25,12 @@
             </tr>
         </table>
     </form>    
-    <form action="login-pegawai-process.php" method="POST" id="form2" style="display:none">
-        <h1>Login Pegawai</h1>
+    <form action="login-peminjam-process.php" method="POST" id="form2" style="display:none">
+        <h1>Login Peminjam</h1>
         <table>
             <tr>
-                <td>NIP</td>
-                <td><input type="text" name="nip"></td>
+                <td>Username</td>
+                <td><input type="text" name="username"></td>
             </tr>
             <tr>
                 <td>Password</td>
@@ -40,6 +40,7 @@
                 <td><input type="submit" name="submit"></td>
             </tr>
         </table>
+        <p>Belum punya akun ? <a href="register-peminjam.php">Register</a></p>
     </form>    
     <script>
         var level = document.getElementById("level");
@@ -53,7 +54,7 @@
                 form1.style.display = "block";
                 form2.style.display = "none";
             }
-            else if(this.value == "pegawai"){   
+            else if(this.value == "peminjam"){   
                 form2.style.display = "block";
                 form1.style.display = "none";
             }
